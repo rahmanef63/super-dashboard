@@ -82,144 +82,34 @@ export function SidebarNav({ user }: SidebarNavProps = {}) {
           <DashboardSwitcher />
 
           <div className="flex-1 overflow-y-auto">
-            {/* Platform Section */}
+            {/* Dashboard Menu Section */}
             <div className="px-3 py-2">
               <div className="text-xs font-semibold text-gray-400 px-3 py-2 uppercase">
-                Platform
+                Dashboard Menu
               </div>
               <div className="space-y-1">
-                <Link href="/dashboard">
-                  <div
-                    className={cn(
-                      "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
-                      pathname === "/dashboard"
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-400 hover:text-white hover:bg-gray-800",
-                    )}
-                  >
-                    <LayoutDashboard className="h-5 w-5" />
-                    <span>Playground</span>
-                    <ChevronDown className="h-4 w-4 ml-auto" />
-                  </div>
-                </Link>
-                <div className="pl-10 space-y-1">
-                  <Link href="/dashboard/history">
-                    <div
-                      className={cn(
-                        "flex items-center px-3 py-2 rounded-md text-sm transition-colors",
-                        pathname.includes("/history")
-                          ? "bg-gray-800 text-white"
-                          : "text-gray-400 hover:text-white hover:bg-gray-800",
-                      )}
-                    >
-                      <span>History</span>
-                    </div>
-                  </Link>
-                  <Link href="/dashboard/starred">
-                    <div
-                      className={cn(
-                        "flex items-center px-3 py-2 rounded-md text-sm transition-colors",
-                        pathname.includes("/starred")
-                          ? "bg-gray-800 text-white"
-                          : "text-gray-400 hover:text-white hover:bg-gray-800",
-                      )}
-                    >
-                      <span>Starred</span>
-                    </div>
-                  </Link>
-                  <Link href="/dashboard/settings">
-                    <div
-                      className={cn(
-                        "flex items-center px-3 py-2 rounded-md text-sm transition-colors",
-                        pathname.includes("/settings")
-                          ? "bg-gray-800 text-white"
-                          : "text-gray-400 hover:text-white hover:bg-gray-800",
-                      )}
-                    >
-                      <span>Settings</span>
-                    </div>
-                  </Link>
-                </div>
-                <Link href="/models">
-                  <div
-                    className={cn(
-                      "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
-                      pathname.includes("/models")
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-400 hover:text-white hover:bg-gray-800",
-                    )}
-                  >
-                    <LayoutDashboard className="h-5 w-5" />
-                    <span>Models</span>
-                    <ChevronRight className="h-4 w-4 ml-auto" />
-                  </div>
-                </Link>
-                <Link href="/documentation">
-                  <div
-                    className={cn(
-                      "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
-                      pathname.includes("/documentation")
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-400 hover:text-white hover:bg-gray-800",
-                    )}
-                  >
-                    <FileText className="h-5 w-5" />
-                    <span>Documentation</span>
-                    <ChevronRight className="h-4 w-4 ml-auto" />
-                  </div>
-                </Link>
-                <Link href="/settings">
-                  <div
-                    className={cn(
-                      "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
-                      pathname.includes("/settings") &&
-                        !pathname.includes("/dashboard/settings")
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-400 hover:text-white hover:bg-gray-800",
-                    )}
-                  >
-                    <Settings className="h-5 w-5" />
-                    <span>Settings</span>
-                    <ChevronRight className="h-4 w-4 ml-auto" />
-                  </div>
-                </Link>
-              </div>
-            </div>
+                {(() => {
+                  const currentDashboard = dashboardTypes.find(
+                    (d) => d.id === activeDashboard,
+                  );
+                  if (!currentDashboard) return null;
 
-            {/* Projects Section */}
-            <div className="px-3 py-2 mt-4">
-              <div className="text-xs font-semibold text-gray-400 px-3 py-2 uppercase">
-                Dashboards
-              </div>
-              <div className="space-y-1">
-                {dashboardTypes.map((dashboard) => (
-                  <Link key={dashboard.id} href={dashboard.path}>
-                    <div
-                      className={cn(
-                        "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
-                        pathname.includes(dashboard.path)
-                          ? "bg-gray-800 text-white"
-                          : "text-gray-400 hover:text-white hover:bg-gray-800",
-                      )}
-                    >
-                      {dashboard.icon}
-                      <span>{dashboard.name}</span>
-                    </div>
-                  </Link>
-                ))}
-                <Link href="/dashboard/customize">
-                  <div
-                    className={cn(
-                      "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
-                      pathname.includes("/dashboard/customize")
-                        ? "bg-gray-800 text-white"
-                        : "text-gray-400 hover:text-white hover:bg-gray-800",
-                    )}
-                  >
-                    <Plus className="h-5 w-5" />
-                    <span>Add Dashboard</span>
-                  </div>
-                </Link>
+                  return currentDashboard.menuItems.map((item) => (
+                    <Link key={item.id} href={item.path}>
+                      <div
+                        className={cn(
+                          "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
+                          pathname === item.path
+                            ? "bg-gray-800 text-white"
+                            : "text-gray-400 hover:text-white hover:bg-gray-800",
+                        )}
+                      >
+                        {item.icon && item.icon}
+                        <span>{item.name}</span>
+                      </div>
+                    </Link>
+                  ));
+                })()}
               </div>
             </div>
           </div>

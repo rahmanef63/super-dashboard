@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter, usePathname } from "next/navigation";
-import { ChevronDown } from "lucide-react";
+import { ChevronDown, Plus } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,6 +14,8 @@ import {
   dashboardTypes,
   type DashboardType,
 } from "@/features/dashboard/shared";
+import Link from "next/link";
+import { cn } from "@/lib/utils"; // Ensure this is correctly imported
 
 export function DashboardSwitcher() {
   const router = useRouter();
@@ -24,7 +26,7 @@ export function DashboardSwitcher() {
 
   // Determine which dashboard type is active based on the pathname
   useEffect(() => {
-    const dashboardPath = pathname.split("/").slice(0, 3).join("/");
+    const dashboardPath = "/" + pathname.split("/").slice(1, 3).join("/");
     const found = dashboardTypes.find((dt) => dt.path === dashboardPath);
     setActiveDashboard(found || dashboardTypes[0]);
   }, [pathname]);
@@ -63,6 +65,21 @@ export function DashboardSwitcher() {
               <span>{dashboard.name}</span>
             </DropdownMenuItem>
           ))}
+          <DropdownMenuItem asChild>
+            <Link href="/dashboard/customize">
+              <div
+                className={cn(
+                  "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
+                  pathname.includes("/dashboard/customize")
+                    ? "bg-gray-800 text-white"
+                    : "text-gray-400 hover:text-white hover:bg-gray-800",
+                )}
+              >
+                <Plus className="h-5 w-5" />
+                <span>Add Dashboard</span>
+              </div>
+            </Link>
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
