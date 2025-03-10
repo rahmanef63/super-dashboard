@@ -5,38 +5,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import {
+  LayoutDashboard,
+  Briefcase,
+  PieChart,
+  Heart,
   Settings,
   ChevronDown,
   ChevronRight,
   Plus,
   Menu,
   X,
-  LayoutDashboard,
-  Briefcase,
-  PieChart,
-  Heart,
-  Users,
-  GraduationCap,
-  Bookmark,
-  Palette,
-  Globe,
-  History,
-  Star,
   FileText,
-  MoreHorizontal,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import {
-  dashboardTypes,
-  type DashboardType,
-  type MenuItem,
-} from "@/features/dashboard/shared";
-
-type MenuSection = {
-  title: string;
-  items: MenuItem[];
-};
+import { dashboardTypes } from "@/features/dashboard/shared";
+import { DashboardSwitcher } from "./dashboard-switcher";
 
 interface SidebarNavProps {
   user?: any;
@@ -95,20 +79,7 @@ export function SidebarNav({ user }: SidebarNavProps = {}) {
       >
         <div className="flex flex-col h-full">
           {/* Dashboard Header */}
-          <div className="p-4 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center text-white font-bold">
-                <LayoutDashboard className="h-4 w-4" />
-              </div>
-              <div>
-                <div className="font-semibold">Dashboard</div>
-                <div className="text-xs text-gray-400">AI-Powered</div>
-              </div>
-            </div>
-            <Button variant="ghost" size="icon" className="text-gray-400">
-              <ChevronDown className="h-4 w-4" />
-            </Button>
-          </div>
+          <DashboardSwitcher />
 
           <div className="flex-1 overflow-y-auto">
             {/* Platform Section */}
@@ -121,7 +92,7 @@ export function SidebarNav({ user }: SidebarNavProps = {}) {
                   <div
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors",
-                      pathname.includes("/dashboard")
+                      pathname === "/dashboard"
                         ? "bg-gray-800 text-white"
                         : "text-gray-400 hover:text-white hover:bg-gray-800",
                     )}

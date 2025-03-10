@@ -1,7 +1,7 @@
 import { createClient } from "../../../../supabase/server";
 import { redirect } from "next/navigation";
 import { SubscriptionCheck } from "@/components/subscription-check";
-import { DashboardHeader, DashboardCard } from "@/features/dashboard";
+import { DashboardHeader, DashboardCard } from "@/features/dashboard/shared";
 import { SettingsDialog } from "@/features/settings";
 
 export default async function SettingsPage() {
