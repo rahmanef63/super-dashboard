@@ -1,7 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { Bell, Search, Moon, Sun, Settings } from "lucide-react";
+import { useState, useEffect } from "react";
+import { Bell, Search, Moon, Sun, Settings, Palette } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useTheme } from "next-themes";
@@ -11,6 +11,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Badge } from "@/components/ui/badge";
 import { DashboardSwitcher } from "./dashboard-switcher";
@@ -28,6 +29,7 @@ export function DashboardHeader({ title, user }: DashboardHeaderProps) {
   const [notifications, setNotifications] = useState(3);
   const { toast } = useToast();
   const supabase = createClient();
+  const [settingsDialogOpen, setSettingsDialogOpen] = useState(false);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -52,7 +54,6 @@ export function DashboardHeader({ title, user }: DashboardHeaderProps) {
       <div className="flex flex-1 items-center justify-between">
         <div className="flex items-center gap-4">
           <h1 className="text-xl font-semibold hidden md:block">{title}</h1>
-          <DashboardSwitcher />
         </div>
 
         <div className="flex items-center gap-4">
@@ -67,17 +68,32 @@ export function DashboardHeader({ title, user }: DashboardHeaderProps) {
           </div>
 
           {/* Theme toggle */}
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-          >
-            {theme === "dark" ? (
-              <Sun className="h-5 w-5" />
-            ) : (
-              <Moon className="h-5 w-5" />
-            )}
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon">
+                {theme === "dark" ? (
+                  <Moon className="h-5 w-5" />
+                ) : (
+                  <Sun className="h-5 w-5" />
+                )}
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onClick={() => setTheme("light")}>
+                <Sun className="h-4 w-4 mr-2" />
+                Light
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setTheme("dark")}>
+                <Moon className="h-4 w-4 mr-2" />
+                Dark
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => setSettingsDialogOpen(true)}>
+                <Palette className="h-4 w-4 mr-2" />
+                Customize UI
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
 
           {/* Notifications */}
           <DropdownMenu>
@@ -153,7 +169,7 @@ export function DashboardHeader({ title, user }: DashboardHeaderProps) {
               <Button variant="ghost" size="icon" className="rounded-full">
                 <Avatar className="h-8 w-8">
                   <AvatarImage
-                    src="https://api.dicebear.com/7.x/avataaars/svg?seed=user123"
+                    src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${user?.id || "user123"}`}
                     alt={user?.email || "User"}
                   />
                   <AvatarFallback>
@@ -163,7 +179,19 @@ export function DashboardHeader({ title, user }: DashboardHeaderProps) {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>Profile</DropdownMenuItem>
+              <div className="px-2 py-1.5 text-sm font-medium">
+                {user?.email}
+              </div>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem>
+                <Settings className="h-4 w-4 mr-2" />
+                Profile Settings
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setSettingsDialogOpen(true)}>
+                <Palette className="h-4 w-4 mr-2" />
+                UI Settings
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem onClick={handleSignOut}>
                 Sign out
               </DropdownMenuItem>
@@ -171,6 +199,9 @@ export function DashboardHeader({ title, user }: DashboardHeaderProps) {
           </DropdownMenu>
         </div>
       </div>
+
+      {/* Settings Dialog (controlled version) */}
+      <SettingsDialog trigger={null} />
     </header>
   );
 }

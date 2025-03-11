@@ -12,6 +12,7 @@ interface DashboardCardProps {
   description?: string;
   className?: string;
   children: React.ReactNode;
+  headerAction?: React.ReactNode;
 }
 
 export function DashboardCard({
@@ -19,14 +20,30 @@ export function DashboardCard({
   description,
   className,
   children,
+  headerAction,
 }: DashboardCardProps) {
   return (
     <Card className={cn("h-full overflow-hidden", className)}>
-      <CardHeader className="p-4 pb-2">
-        <CardTitle className="text-lg font-medium">{title}</CardTitle>
-        {description && <CardDescription>{description}</CardDescription>}
+      <CardHeader className="p-4 pb-2 card-content">
+        <div className="flex justify-between items-start">
+          <div className="flex-1 min-w-0">
+            <CardTitle className="text-lg font-medium truncate">
+              {title}
+            </CardTitle>
+            {description && (
+              <CardDescription className="truncate">
+                {description}
+              </CardDescription>
+            )}
+          </div>
+          {headerAction && (
+            <div className="ml-4 flex-shrink-0">{headerAction}</div>
+          )}
+        </div>
       </CardHeader>
-      <CardContent className="p-4 pt-2">{children}</CardContent>
+      <CardContent className="p-4 pt-2 card-content overflow-auto">
+        {children}
+      </CardContent>
     </Card>
   );
 }

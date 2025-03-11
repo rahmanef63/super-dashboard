@@ -63,7 +63,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full overflow-hidden">
       {searchColumn && (
         <div className="flex items-center">
           <div className="relative flex-1 max-w-sm">
@@ -78,7 +78,7 @@ export function DataTable<TData, TValue>({
         </div>
       )}
 
-      <div className="rounded-md border">
+      <div className="rounded-md border overflow-x-auto">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
