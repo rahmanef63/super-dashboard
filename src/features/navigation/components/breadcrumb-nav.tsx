@@ -72,10 +72,8 @@ export function BreadcrumbNav() {
     <Breadcrumb className="mb-4 px-4 md:px-6">
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink asChild>
-            <Link href="/">
-              <Home className="h-4 w-4" />
-            </Link>
+          <BreadcrumbLink href="/">
+            <Home className="h-4 w-4" />
           </BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
@@ -86,8 +84,8 @@ export function BreadcrumbNav() {
               <BreadcrumbPage>{segment.name}</BreadcrumbPage>
             ) : (
               <>
-                <BreadcrumbLink asChild>
-                  <Link href={segment.href}>{segment.name}</Link>
+                <BreadcrumbLink href={segment.href}>
+                  {segment.name}
                 </BreadcrumbLink>
                 {index < breadcrumbSegments.length - 1 && (
                   <BreadcrumbSeparator />

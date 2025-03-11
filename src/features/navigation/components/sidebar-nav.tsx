@@ -55,10 +55,12 @@ export function SidebarNav({ user }: SidebarNavProps = {}) {
 
   // Determine which dashboard type is active based on the pathname
   useEffect(() => {
-    const dashboardPath = pathname.split("/").slice(0, 3).join("/");
-    const found = dashboardTypes.find((dt) => dt.path === dashboardPath);
-    if (found) {
-      setActiveDashboard(found.id);
+    if (pathname) {
+      const dashboardPath = pathname.split("/").slice(0, 3).join("/");
+      const found = dashboardTypes.find((dt) => dt.path === dashboardPath);
+      if (found) {
+        setActiveDashboard(found.id);
+      }
     }
   }, [pathname]);
 

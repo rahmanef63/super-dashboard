@@ -52,15 +52,27 @@ const BreadcrumbLink = React.forwardRef<
   React.AnchorHTMLAttributes<HTMLAnchorElement> & {
     asChild?: boolean;
   }
->(({ asChild, className, ...props }, ref) => {
-  const Comp = asChild ? Slot : "a";
+>(({ asChild, className, children, ...props }, ref) => {
+  if (asChild) {
+    return (
+      <a
+        ref={ref}
+        className={cn("transition-colors hover:text-foreground", className)}
+        {...props}
+      >
+        {children}
+      </a>
+    );
+  }
 
   return (
-    <Comp
+    <a
       ref={ref}
       className={cn("transition-colors hover:text-foreground", className)}
       {...props}
-    />
+    >
+      {children}
+    </a>
   );
 });
 BreadcrumbLink.displayName = "BreadcrumbLink";
@@ -71,6 +83,8 @@ const BreadcrumbPage = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <span
     ref={ref}
+    role="link"
+    aria-disabled="true"
     aria-current="page"
     className={cn("font-normal text-foreground", className)}
     {...props}
@@ -94,6 +108,24 @@ const BreadcrumbSeparator = ({
 );
 BreadcrumbSeparator.displayName = "BreadcrumbSeparator";
 
+const BreadcrumbEllipsis = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) => (
+  <span
+    role="presentation"
+    aria-hidden="true"
+    className={cn("flex h-9 w-9 items-center justify-center", className)}
+    {...props}
+  >
+    <span className="flex h-1 w-1 rounded-full bg-muted-foreground"></span>
+    <span className="mx-0.5 flex h-1 w-1 rounded-full bg-muted-foreground"></span>
+    <span className="flex h-1 w-1 rounded-full bg-muted-foreground"></span>
+    <span className="sr-only">More</span>
+  </span>
+);
+BreadcrumbEllipsis.displayName = "BreadcrumbElipssis";
+
 export {
   Breadcrumb,
   BreadcrumbList,
@@ -101,4 +133,5 @@ export {
   BreadcrumbLink,
   BreadcrumbPage,
   BreadcrumbSeparator,
+  BreadcrumbEllipsis,
 };

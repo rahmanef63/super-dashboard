@@ -24,9 +24,11 @@ export function DashboardSwitcher() {
 
   // Determine which dashboard type is active based on the pathname
   useEffect(() => {
-    const dashboardPath = pathname.split("/").slice(0, 3).join("/");
-    const found = dashboardTypes.find((dt) => dt.path === dashboardPath);
-    setActiveDashboard(found || dashboardTypes[0]);
+    if (pathname) {
+      const dashboardPath = pathname.split("/").slice(0, 3).join("/");
+      const found = dashboardTypes.find((dt) => dt.path === dashboardPath);
+      setActiveDashboard(found || dashboardTypes[0]);
+    }
   }, [pathname]);
 
   const handleDashboardChange = (dashboard: DashboardType) => {

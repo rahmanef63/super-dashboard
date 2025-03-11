@@ -39,6 +39,15 @@
     --font-family: "Inter", system-ui, sans-serif;
     --content-spacing: 1rem;
     --content-padding: 0.75rem;
+
+    /* Sidebar variables */
+    --sidebar-width: 16rem;
+    --sidebar-icon-width: 4rem;
+    --sidebar-primary: var(--primary);
+    --sidebar-primary-foreground: var(--primary-foreground);
+    --sidebar-accent: var(--accent);
+    --sidebar-accent-foreground: var(--accent-foreground);
+    --sidebar-foreground: var(--foreground);
   }
 
   .dark {
