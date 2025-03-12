@@ -50,14 +50,14 @@ export function AIInsightsPanel() {
         onClick={togglePanel}
         variant="ghost"
         size="icon"
-        className={`fixed right-4 top-4 z-50 rounded-full bg-primary text-primary-foreground shadow-md ${isOpen ? "hidden" : ""}`}
+        className={`rounded-full bg-primary text-primary-foreground shadow-md ${isOpen ? "hidden" : ""}`}
       >
         <Lightbulb className="h-5 w-5" />
       </Button>
 
       {/* Panel */}
       <div
-        className={`fixed inset-y-0 right-0 z-40 w-80 bg-white dark:bg-gray-900 border-l border-gray-200 dark:border-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out ${isOpen ? "translate-x-0" : "translate-x-full"}`}
+        className={`fixed bottom-0 right-0 z-40 w-80 bg-white dark:bg-gray-900 border-l border-t border-gray-200 dark:border-gray-800 shadow-xl transform transition-transform duration-300 ease-in-out rounded-tl-lg ${isOpen ? "translate-y-0" : "translate-y-full"}`}
       >
         <div className="flex flex-col h-full">
           {/* Header */}

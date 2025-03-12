@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export function DashboardSkeleton() {
+export function LoadingSkeleton() {
   return (
     <div className="w-full p-4 md:p-6 space-y-6 animate-pulse">
       {/* Header Skeleton */}

@@ -38,6 +38,8 @@ import {
 
 interface SettingsDialogProps {
   trigger?: React.ReactNode;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }
 
 type ColorTheme = {
@@ -122,8 +124,12 @@ const fontFamilies = [
   "Open Sans",
 ];
 
-export function SettingsDialog({ trigger }: SettingsDialogProps) {
-  const [open, setOpen] = useState(false);
+export function SettingsDialog({
+  trigger,
+  open: externalOpen,
+  onOpenChange: externalOnOpenChange,
+}: SettingsDialogProps) {
+  const [open, setOpen] = useState(externalOpen || false);
   const { theme, setTheme } = useTheme();
   const [settings, setSettings] = useState<UISettings>({
     notifications: true,
@@ -142,6 +148,20 @@ export function SettingsDialog({ trigger }: SettingsDialogProps) {
     borderRadius: 0.5,
     density: "comfortable",
   });
+
+  // Sync with external open state
+  useEffect(() => {
+    if (externalOpen !== undefined) {
+      setOpen(externalOpen);
+    }
+  }, [externalOpen]);
+
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
+    if (externalOnOpenChange) {
+      externalOnOpenChange(newOpen);
+    }
+  };
 
   // Load settings from localStorage on component mount
   useEffect(() => {
@@ -257,14 +277,12 @@ export function SettingsDialog({ trigger }: SettingsDialogProps) {
 
   const handleSave = () => {
     localStorage.setItem("uiSettings", JSON.stringify(settings));
-    setOpen(false);
+    handleOpenChange(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        {trigger || <Button variant="outline">Settings</Button>}
-      </DialogTrigger>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
+      {trigger && <DialogTrigger asChild>{trigger}</DialogTrigger>}
       <DialogContent className="sm:max-w-[600px] max-h-[80vh] overflow-y-auto overscroll-contain">
         <DialogHeader>
           <DialogTitle>Settings</DialogTitle>
@@ -720,7 +738,7 @@ export function SettingsDialog({ trigger }: SettingsDialogProps) {
         </Tabs>
 
         <DialogFooter className="mt-6">
-          <Button variant="outline" onClick={() => setOpen(false)}>
+          <Button variant="outline" onClick={() => handleOpenChange(false)}>
             Cancel
           </Button>
           <Button onClick={handleSave}>Save changes</Button>

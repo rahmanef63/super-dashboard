@@ -2,13 +2,12 @@ import { createClient } from "../../../../../supabase/server";
 import { redirect } from "next/navigation";
 import { SubscriptionCheck } from "@/components/subscription-check";
 import { DashboardHeader } from "@/features/dashboard/shared";
-import { ProjectsTable } from "@/features/dashboard/professional/components/projects-table";
 import { DashboardCard } from "@/features/dashboard/shared";
 import { Suspense } from "react";
 import { DashboardSkeleton } from "@/features/dashboard/shared/components/dashboard-skeleton";
 import { ErrorDisplay } from "@/features/dashboard/shared/components/error-display";
 
-export default async function ProjectsPage() {
+export default async function PhotographyPage() {
   const supabase = await createClient();
 
   const {
@@ -21,21 +20,27 @@ export default async function ProjectsPage() {
 
   return (
     <SubscriptionCheck>
+      <DashboardHeader title="Photography" user={user} />
       <main className="w-full p-4 md:p-6 space-y-6">
-        <section className="bg-gradient-to-r from-indigo-500 to-indigo-700 rounded-lg p-6 text-white">
-          <h2 className="text-2xl font-bold mb-2">Project Management</h2>
+        <section className="bg-gradient-to-r from-pink-500 to-rose-600 rounded-lg p-6 text-white">
+          <h2 className="text-2xl font-bold mb-2">Photography Collection</h2>
           <p className="mb-4 max-w-2xl">
-            Track and manage all your projects in one place. Monitor progress,
-            deadlines, and team assignments.
+            Organize and showcase your photography projects, equipment, and
+            inspiration.
           </p>
         </section>
 
         <Suspense fallback={<DashboardSkeleton />}>
           <DashboardCard
-            title="Projects Overview"
-            description="All active and upcoming projects"
+            title="Coming Soon"
+            description="This feature is currently under development"
           >
-            <ProjectsTable />
+            <div className="p-6 text-center">
+              <ErrorDisplay
+                title="Under Construction"
+                message="The Photography collection feature is coming soon. Check back later for updates."
+              />
+            </div>
           </DashboardCard>
         </Suspense>
       </main>

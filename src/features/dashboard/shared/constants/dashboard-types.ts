@@ -1,3 +1,4 @@
+import React from "react";
 import {
   LayoutDashboard,
   Briefcase,
@@ -8,389 +9,315 @@ import {
   Bookmark,
   Palette,
   Globe,
+  Settings,
+  FileText,
+  CreditCard,
+  DollarSign,
+  Activity,
+  Calendar,
+  ClipboardList,
+  BookOpen,
+  Zap,
+  Camera,
+  Laptop,
+  Presentation,
+  Building,
+  Star,
+  Info,
+  ShoppingCart,
+  HelpCircle,
 } from "lucide-react";
-import { ReactNode } from "react";
-import React from "react";
 
-export type MenuItem = {
+export interface MenuItem {
   id: string;
   name: string;
-  description: string;
+  description?: string;
   path: string;
-  icon?: ReactNode;
-};
+  icon?: React.ReactNode;
+  children?: MenuItem[];
+}
 
-export type DashboardType = {
+export interface DashboardType {
   id: string;
   name: string;
-  icon: ReactNode;
+  icon: React.ReactNode;
   path: string;
   menuItems: MenuItem[];
-};
+  organizations?: boolean; // Flag to indicate if this dashboard supports organization switching
+}
+
+// Create icon elements separately to avoid JSX parsing issues
+const presentationIcon = React.createElement(Presentation, {
+  className: "h-4 w-4",
+});
+const layoutDashboardIcon = React.createElement(LayoutDashboard, {
+  className: "h-4 w-4",
+});
+const settingsIcon = React.createElement(Settings, { className: "h-4 w-4" });
+const briefcaseIcon = React.createElement(Briefcase, { className: "h-4 w-4" });
+const fileTextIcon = React.createElement(FileText, { className: "h-4 w-4" });
+const clipboardListIcon = React.createElement(ClipboardList, {
+  className: "h-4 w-4",
+});
+const pieChartIcon = React.createElement(PieChart, { className: "h-4 w-4" });
+const creditCardIcon = React.createElement(CreditCard, {
+  className: "h-4 w-4",
+});
+const dollarSignIcon = React.createElement(DollarSign, {
+  className: "h-4 w-4",
+});
+const heartIcon = React.createElement(Heart, { className: "h-4 w-4" });
+const activityIcon = React.createElement(Activity, { className: "h-4 w-4" });
+const usersIcon = React.createElement(Users, { className: "h-4 w-4" });
+const calendarIcon = React.createElement(Calendar, { className: "h-4 w-4" });
+const graduationCapIcon = React.createElement(GraduationCap, {
+  className: "h-4 w-4",
+});
+const bookOpenIcon = React.createElement(BookOpen, { className: "h-4 w-4" });
+const bookmarkIcon = React.createElement(Bookmark, { className: "h-4 w-4" });
+const zapIcon = React.createElement(Zap, { className: "h-4 w-4" });
+const paletteIcon = React.createElement(Palette, { className: "h-4 w-4" });
+const cameraIcon = React.createElement(Camera, { className: "h-4 w-4" });
+const globeIcon = React.createElement(Globe, { className: "h-4 w-4" });
+const laptopIcon = React.createElement(Laptop, { className: "h-4 w-4" });
+const starIcon = React.createElement(Star, { className: "h-4 w-4" });
+const infoIcon = React.createElement(Info, { className: "h-4 w-4" });
+const shoppingCartIcon = React.createElement(ShoppingCart, {
+  className: "h-4 w-4",
+});
+const helpCircleIcon = React.createElement(HelpCircle, {
+  className: "h-4 w-4",
+});
 
 export const dashboardTypes: DashboardType[] = [
   {
-    id: "main",
-    name: "Main Dashboard",
-    icon: React.createElement(LayoutDashboard, { className: "h-5 w-5" }),
-    path: "/dashboard",
+    id: "demo",
+    name: "Demo Dashboard",
+    path: "/dashboard/demo",
+    icon: presentationIcon,
     menuItems: [
       {
         id: "overview",
         name: "Overview",
-        description:
-          "Provides a summary of recent activities, notifications, and quick insights.",
+        path: "/dashboard/demo",
+        icon: layoutDashboardIcon,
+      },
+      {
+        id: "features",
+        name: "Features",
+        path: "/dashboard/demo#features",
+        icon: starIcon,
+      },
+      {
+        id: "dashboards",
+        name: "Dashboards",
+        path: "/dashboard/demo#dashboards",
+        icon: layoutDashboardIcon,
+      },
+      {
+        id: "pricing",
+        name: "Pricing",
+        path: "/dashboard/demo#pricing",
+        icon: shoppingCartIcon,
+      },
+      {
+        id: "cta",
+        name: "Get Started",
+        path: "/dashboard/demo#cta",
+        icon: helpCircleIcon,
+      },
+    ],
+  },
+  {
+    id: "main",
+    name: "Main Dashboard",
+    path: "/dashboard",
+    icon: layoutDashboardIcon,
+    menuItems: [
+      {
+        id: "overview",
+        name: "Overview",
         path: "/dashboard",
-        icon: React.createElement(LayoutDashboard, { className: "h-5 w-5" }),
-      },
-      {
-        id: "notifications",
-        name: "Notifications",
-        description:
-          "Displays alerts and important updates from all dashboards.",
-        path: "/dashboard/notifications",
-      },
-      {
-        id: "recent_activity",
-        name: "Recent Activity",
-        description:
-          "Shows logs of completed tasks, messages, and system updates.",
-        path: "/dashboard/activity",
-      },
-      {
-        id: "quick_access",
-        name: "Quick Access",
-        description:
-          "Allows fast navigation to frequently used features and tools.",
-        path: "/dashboard/quick-access",
+        icon: layoutDashboardIcon,
       },
       {
         id: "settings",
         name: "Settings",
-        description:
-          "Manages user preferences, appearance, and global configurations.",
         path: "/dashboard/settings",
+        icon: settingsIcon,
       },
     ],
   },
   {
     id: "professional",
     name: "Professional",
-    icon: React.createElement(Briefcase, { className: "h-5 w-5" }),
     path: "/dashboard/professional",
+    icon: briefcaseIcon,
     menuItems: [
       {
-        id: "switch_company",
-        name: "Switch Company",
-        description:
-          "Changes the active company, updating all related menu items dynamically.",
+        id: "overview",
+        name: "Overview",
         path: "/dashboard/professional",
+        icon: layoutDashboardIcon,
       },
       {
-        id: "project_management",
-        name: "Project Management",
-        description:
-          "Organizes tasks, deadlines, and milestones for ongoing projects.",
+        id: "projects",
+        name: "Projects",
         path: "/dashboard/professional/projects",
+        icon: fileTextIcon,
       },
       {
-        id: "task_assignments",
-        name: "Task Assignments",
-        description: "Manages task distribution among team members.",
+        id: "tasks",
+        name: "Tasks",
         path: "/dashboard/professional/tasks",
-      },
-      {
-        id: "client_database",
-        name: "Client Database",
-        description:
-          "Stores client contacts, projects, and interaction history.",
-        path: "/dashboard/professional/clients",
-      },
-      {
-        id: "time_tracking",
-        name: "Time Tracking",
-        description: "Monitors working hours, productivity, and billable time.",
-        path: "/dashboard/professional/time",
+        icon: clipboardListIcon,
       },
     ],
+    organizations: true, // Enable organization switching for professional dashboard
   },
   {
     id: "finance",
     name: "Finance",
-    icon: React.createElement(PieChart, { className: "h-5 w-5" }),
     path: "/dashboard/finance",
+    icon: pieChartIcon,
     menuItems: [
       {
-        id: "expense_tracker",
-        name: "Expense Tracker",
-        description: "Logs daily spending and categorizes transactions.",
+        id: "overview",
+        name: "Overview",
         path: "/dashboard/finance",
+        icon: layoutDashboardIcon,
       },
       {
-        id: "income_reports",
-        name: "Income Reports",
-        description: "Summarizes revenue streams and earnings over time.",
-        path: "/dashboard/finance/income",
+        id: "transactions",
+        name: "Transactions",
+        path: "/dashboard/finance/transactions",
+        icon: creditCardIcon,
       },
       {
-        id: "investment_portfolio",
-        name: "Investment Portfolio",
-        description: "Tracks stocks, cryptocurrencies, and other investments.",
-        path: "/dashboard/finance/investments",
-      },
-      {
-        id: "subscription_management",
-        name: "Subscription Management",
-        description: "Lists and manages recurring payments for services.",
-        path: "/dashboard/finance/subscriptions",
-      },
-      {
-        id: "financial_goals",
-        name: "Financial Goals",
-        description:
-          "Sets and monitors savings targets and debt repayment plans.",
-        path: "/dashboard/finance/goals",
+        id: "expense-tracker",
+        name: "Expense Tracker",
+        path: "/dashboard/finance/expense-tracker",
+        icon: dollarSignIcon,
       },
     ],
   },
   {
     id: "health",
     name: "Health",
-    icon: React.createElement(Heart, { className: "h-5 w-5" }),
     path: "/dashboard/health",
+    icon: heartIcon,
     menuItems: [
       {
-        id: "daily_health_stats",
-        name: "Daily Health Stats",
-        description:
-          "Monitors key health metrics such as heart rate and blood sugar.",
+        id: "overview",
+        name: "Overview",
         path: "/dashboard/health",
+        icon: layoutDashboardIcon,
       },
       {
-        id: "medical_records",
-        name: "Medical Records",
-        description:
-          "Stores and organizes health reports, prescriptions, and history.",
-        path: "/dashboard/health/records",
-      },
-      {
-        id: "fitness_tracker",
-        name: "Fitness Tracker",
-        description: "Logs workouts, step counts, and activity progress.",
-        path: "/dashboard/health/fitness",
-      },
-      {
-        id: "meal_planner",
-        name: "Meal Planner",
-        description: "Schedules and tracks daily food intake.",
-        path: "/dashboard/health/meals",
-      },
-      {
-        id: "medication_reminders",
-        name: "Medication Reminders",
-        description:
-          "Sets notifications for taking prescribed medicines on time.",
-        path: "/dashboard/health/medications",
+        id: "activities",
+        name: "Activities",
+        path: "/dashboard/health/activities",
+        icon: activityIcon,
       },
     ],
   },
   {
     id: "family",
     name: "Family",
-    icon: React.createElement(Users, { className: "h-5 w-5" }),
     path: "/dashboard/family",
+    icon: usersIcon,
     menuItems: [
       {
-        id: "family_calendar",
-        name: "Family Calendar",
-        description:
-          "Schedules and syncs important events for the whole family.",
+        id: "overview",
+        name: "Overview",
         path: "/dashboard/family",
+        icon: layoutDashboardIcon,
       },
       {
-        id: "children_education",
-        name: "Children's Education",
-        description: "Tracks academic achievements and school updates.",
-        path: "/dashboard/family/education",
-      },
-      {
-        id: "household_expenses",
-        name: "Household Expenses",
-        description:
-          "Manages shared bills and family-related financial planning.",
-        path: "/dashboard/family/expenses",
-      },
-      {
-        id: "shared_tasks",
-        name: "Shared Notes & Tasks",
-        description:
-          "Collaborative to-do lists and reminders for family members.",
-        path: "/dashboard/family/tasks",
-      },
-      {
-        id: "emergency_contacts",
-        name: "Emergency Contacts",
-        description:
-          "Quick access to medical, police, and other emergency numbers.",
-        path: "/dashboard/family/emergency",
+        id: "events",
+        name: "Events",
+        path: "/dashboard/family/events",
+        icon: calendarIcon,
       },
     ],
   },
   {
     id: "study",
     name: "Study",
-    icon: React.createElement(GraduationCap, { className: "h-5 w-5" }),
     path: "/dashboard/study",
+    icon: graduationCapIcon,
     menuItems: [
       {
-        id: "switch_course",
-        name: "Switch Course",
-        description:
-          "Selects a different active course, updating related study materials dynamically.",
+        id: "overview",
+        name: "Overview",
         path: "/dashboard/study",
+        icon: layoutDashboardIcon,
       },
       {
-        id: "course_progress",
-        name: "Course Progress",
-        description: "Monitors learning advancements and pending modules.",
-        path: "/dashboard/study/progress",
-      },
-      {
-        id: "notes_library",
-        name: "Book & Notes Library",
-        description: "Stores study materials and personal notes.",
-        path: "/dashboard/study/library",
-      },
-      {
-        id: "study_schedule",
-        name: "Study Schedule",
-        description: "Manages exam dates, deadlines, and daily learning plans.",
-        path: "/dashboard/study/schedule",
-      },
-      {
-        id: "certification_tracker",
-        name: "Certification Tracker",
-        description:
-          "Keeps track of completed courses and earned certificates.",
-        path: "/dashboard/study/certifications",
+        id: "courses",
+        name: "Courses",
+        path: "/dashboard/study/courses",
+        icon: bookOpenIcon,
       },
     ],
   },
   {
     id: "spiritual",
     name: "Spiritual",
-    icon: React.createElement(Bookmark, { className: "h-5 w-5" }),
     path: "/dashboard/spiritual",
+    icon: bookmarkIcon,
     menuItems: [
       {
-        id: "daily_prayers",
-        name: "Daily Prayers",
-        description: "Schedules prayer times with reminders.",
+        id: "overview",
+        name: "Overview",
         path: "/dashboard/spiritual",
+        icon: layoutDashboardIcon,
       },
       {
-        id: "quran_study",
-        name: "Quran Study",
-        description: "Provides a section for Quran reading and tafsir study.",
-        path: "/dashboard/spiritual/quran",
-      },
-      {
-        id: "charity_donations",
-        name: "Charity & Donations",
-        description:
-          "Logs and tracks charity contributions and sadaqah history.",
-        path: "/dashboard/spiritual/charity",
-      },
-      {
-        id: "religious_events",
-        name: "Religious Events",
-        description:
-          "Lists upcoming Islamic events, fasting days, and lectures.",
-        path: "/dashboard/spiritual/events",
-      },
-      {
-        id: "duas_collection",
-        name: "Duas Collection",
-        description:
-          "Saves personal and recommended duas for daily supplications.",
-        path: "/dashboard/spiritual/duas",
+        id: "practices",
+        name: "Practices",
+        path: "/dashboard/spiritual/practices",
+        icon: zapIcon,
       },
     ],
   },
   {
     id: "hobbies",
     name: "Hobbies",
-    icon: React.createElement(Palette, { className: "h-5 w-5" }),
     path: "/dashboard/hobbies",
+    icon: paletteIcon,
     menuItems: [
       {
-        id: "hobby_tracker",
-        name: "Hobby Tracker",
-        description: "Logs progress on various hobbies and interests.",
+        id: "overview",
+        name: "Overview",
         path: "/dashboard/hobbies",
+        icon: layoutDashboardIcon,
       },
       {
-        id: "project_workspace",
-        name: "Project Workspace",
-        description: "Manages creative or personal projects.",
-        path: "/dashboard/hobbies/projects",
-      },
-      {
-        id: "learning_resources",
-        name: "Learning Resources",
-        description: "Compiles tutorials, guides, and helpful materials.",
-        path: "/dashboard/hobbies/resources",
-      },
-      {
-        id: "community_events",
-        name: "Community & Events",
-        description: "Finds groups, meetups, and social gatherings.",
-        path: "/dashboard/hobbies/events",
-      },
-      {
-        id: "inspiration_board",
-        name: "Inspiration Board",
-        description: "Saves ideas, references, and inspirations for hobbies.",
-        path: "/dashboard/hobbies/inspiration",
+        id: "photography",
+        name: "Photography",
+        path: "/dashboard/hobbies/photography",
+        icon: cameraIcon,
       },
     ],
   },
   {
     id: "digital",
     name: "Digital",
-    icon: React.createElement(Globe, { className: "h-5 w-5" }),
     path: "/dashboard/digital",
+    icon: globeIcon,
     menuItems: [
       {
-        id: "website_management",
-        name: "Website Management",
-        description: "Monitors and edits personal or business websites.",
+        id: "overview",
+        name: "Overview",
         path: "/dashboard/digital",
+        icon: layoutDashboardIcon,
       },
       {
-        id: "app_integrations",
-        name: "App Integrations",
-        description: "Manages connected apps and third-party services.",
-        path: "/dashboard/digital/integrations",
-      },
-      {
-        id: "cloud_storage",
-        name: "Cloud Storage",
-        description: "Accesses and organizes digital files and backups.",
-        path: "/dashboard/digital/storage",
-      },
-      {
-        id: "digital_assets",
-        name: "Digital Assets",
-        description: "Stores and categorizes important online assets.",
-        path: "/dashboard/digital/assets",
-      },
-      {
-        id: "ai_agent_settings",
-        name: "AI Agent Settings",
-        description:
-          "Configures personal AI settings and automation preferences.",
-        path: "/dashboard/digital/ai-settings",
+        id: "devices",
+        name: "Devices",
+        path: "/dashboard/digital/devices",
+        icon: laptopIcon,
       },
     ],
   },
