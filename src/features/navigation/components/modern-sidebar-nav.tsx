@@ -179,7 +179,7 @@ export function ModernSidebarNav({ user }: ModernSidebarNavProps = {}) {
       <SidebarHeader>
         <DashboardSwitcher user={user} />
       </SidebarHeader>
-      <SidebarContent className="flex-1 overflow-y-auto flex flex-col justify-between">
+      <SidebarContent className="flex-1 overflow-y-auto">
         <div>
           {/* Company Switcher - Only show for Professional dashboard */}
           {activeDashboard === "professional" && (
@@ -278,10 +278,10 @@ export function ModernSidebarNav({ user }: ModernSidebarNavProps = {}) {
                         {item.icon || <LayoutDashboard className="h-4 w-4" />}
                         <span
                           className={cn(
-                            "transition-opacity",
+                            "ml-2 transition-all duration-200",
                             collapsed
-                              ? "opacity-0 w-0 absolute"
-                              : "opacity-100 relative",
+                              ? "opacity-0 w-0 absolute -left-10"
+                              : "opacity-100 relative left-0",
                           )}
                         >
                           {item.name}
@@ -304,10 +304,10 @@ export function ModernSidebarNav({ user }: ModernSidebarNavProps = {}) {
                           {item.icon || <LayoutDashboard className="h-4 w-4" />}
                           <span
                             className={cn(
-                              "transition-opacity",
+                              "ml-2 transition-all duration-200",
                               collapsed
-                                ? "opacity-0 w-0 absolute"
-                                : "opacity-100 relative",
+                                ? "opacity-0 w-0 absolute -left-10"
+                                : "opacity-100 relative left-0",
                             )}
                           >
                             {item.name}
@@ -381,10 +381,10 @@ export function ModernSidebarNav({ user }: ModernSidebarNavProps = {}) {
                 <Settings className="h-4 w-4" />
                 <span
                   className={cn(
-                    "transition-opacity",
+                    "ml-2 transition-all duration-200",
                     collapsed
-                      ? "opacity-0 w-0 absolute"
-                      : "opacity-100 relative",
+                      ? "opacity-0 w-0 absolute -left-10"
+                      : "opacity-100 relative left-0",
                   )}
                 >
                   Settings
@@ -396,10 +396,10 @@ export function ModernSidebarNav({ user }: ModernSidebarNavProps = {}) {
                 <Bell className="h-4 w-4" />
                 <span
                   className={cn(
-                    "transition-opacity",
+                    "ml-2 transition-all duration-200",
                     collapsed
-                      ? "opacity-0 w-0 absolute"
-                      : "opacity-100 relative",
+                      ? "opacity-0 w-0 absolute -left-10"
+                      : "opacity-100 relative left-0",
                   )}
                 >
                   Notifications
@@ -415,10 +415,10 @@ export function ModernSidebarNav({ user }: ModernSidebarNavProps = {}) {
                 )}
                 <span
                   className={cn(
-                    "transition-opacity",
+                    "ml-2 transition-all duration-200",
                     collapsed
-                      ? "opacity-0 w-0 absolute"
-                      : "opacity-100 relative",
+                      ? "opacity-0 w-0 absolute -left-10"
+                      : "opacity-100 relative left-0",
                   )}
                 >
                   {theme === "dark" ? "Light Mode" : "Dark Mode"}
@@ -430,10 +430,10 @@ export function ModernSidebarNav({ user }: ModernSidebarNavProps = {}) {
                 <Search className="h-4 w-4" />
                 <span
                   className={cn(
-                    "transition-opacity",
+                    "ml-2 transition-all duration-200",
                     collapsed
-                      ? "opacity-0 w-0 absolute"
-                      : "opacity-100 relative",
+                      ? "opacity-0 w-0 absolute -left-10"
+                      : "opacity-100 relative left-0",
                   )}
                 >
                   Search
@@ -445,10 +445,10 @@ export function ModernSidebarNav({ user }: ModernSidebarNavProps = {}) {
                 <Languages className="h-4 w-4" />
                 <span
                   className={cn(
-                    "transition-opacity",
+                    "ml-2 transition-all duration-200",
                     collapsed
-                      ? "opacity-0 w-0 absolute"
-                      : "opacity-100 relative",
+                      ? "opacity-0 w-0 absolute -left-10"
+                      : "opacity-100 relative left-0",
                   )}
                 >
                   Language
@@ -482,10 +482,10 @@ export function ModernSidebarNav({ user }: ModernSidebarNavProps = {}) {
                   </Avatar>
                   <div
                     className={cn(
-                      "grid flex-1 text-left text-sm leading-tight transition-opacity",
+                      "ml-2 grid flex-1 text-left text-sm leading-tight transition-all duration-200",
                       collapsed
-                        ? "opacity-0 w-0 absolute"
-                        : "opacity-100 relative",
+                        ? "opacity-0 w-0 absolute -left-10"
+                        : "opacity-100 relative left-0",
                     )}
                   >
                     <span className="truncate font-semibold">

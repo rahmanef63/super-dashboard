@@ -1,9 +1,5 @@
 "use client";
 
-import { createClient } from "../../../../supabase/server";
-import { redirect } from "next/navigation";
-import { SubscriptionCheck } from "@/components/subscription-check";
-import { DashboardHeader } from "@/features/dashboard/shared";
 import { DashboardOverview } from "@/features/dashboard/main";
 import { ModernSidebarNav } from "@/features/navigation/components/modern-sidebar-nav";
 import {

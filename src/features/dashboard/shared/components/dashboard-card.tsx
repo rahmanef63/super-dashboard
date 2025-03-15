@@ -23,7 +23,12 @@ export function DashboardCard({
   headerAction,
 }: DashboardCardProps) {
   return (
-    <Card className={cn("h-full overflow-hidden", className)}>
+    <Card
+      className={cn(
+        "h-full overflow-hidden hover:shadow-md transition-all duration-200",
+        className,
+      )}
+    >
       <CardHeader className="p-4 pb-2 card-content">
         <div className="flex justify-between items-start">
           <div className="flex-1 min-w-0">

@@ -43,7 +43,7 @@ export function DashboardOverview({ user }: DashboardOverviewProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
           {dashboardTypes.map((dashboard) => (
             <Link href={dashboard.path} key={dashboard.id}>
-              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow cursor-pointer h-full">
+              <div className="bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-6 hover:shadow-md transition-shadow cursor-pointer h-full hover:scale-105 transition-all duration-200">
                 <div className="flex justify-between items-start">
                   <div className="p-3 rounded-full bg-blue-50 dark:bg-blue-900 text-blue-600 dark:text-blue-300 mb-4">
                     {dashboard.icon}
@@ -142,7 +142,7 @@ export function DashboardOverview({ user }: DashboardOverviewProps) {
               ].map((update, index) => (
                 <div
                   key={index}
-                  className="flex items-start pb-3 border-b last:border-0 last:pb-0"
+                  className="flex items-start pb-3 border-b last:border-0 last:pb-0 hover:bg-gray-50 dark:hover:bg-gray-800 p-2 rounded-md transition-colors"
                 >
                   <div className="flex-1">
                     <p className="text-sm font-medium">{update.title}</p>
@@ -168,7 +168,7 @@ export function DashboardOverview({ user }: DashboardOverviewProps) {
             description="Key metrics across your dashboards"
           >
             <div className="grid grid-cols-2 gap-4">
-              <div className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg">
+              <div className="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-lg hover:shadow-md transition-all duration-200 hover:translate-y-[-2px]">
                 <div className="flex items-center justify-between mb-2">
                   <Gauge className="h-5 w-5 text-blue-600 dark:text-blue-400" />
                   <span className="text-xs text-blue-600 dark:text-blue-400 font-medium">
@@ -183,7 +183,7 @@ export function DashboardOverview({ user }: DashboardOverviewProps) {
                 </p>
               </div>
 
-              <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg">
+              <div className="bg-green-50 dark:bg-green-900/30 p-4 rounded-lg hover:shadow-md transition-all duration-200 hover:translate-y-[-2px]">
                 <div className="flex items-center justify-between mb-2">
                   <PieChart className="h-5 w-5 text-green-600 dark:text-green-400" />
                   <span className="text-xs text-green-600 dark:text-green-400 font-medium">
@@ -198,7 +198,7 @@ export function DashboardOverview({ user }: DashboardOverviewProps) {
                 </p>
               </div>
 
-              <div className="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-lg">
+              <div className="bg-purple-50 dark:bg-purple-900/30 p-4 rounded-lg hover:shadow-md transition-all duration-200 hover:translate-y-[-2px]">
                 <div className="flex items-center justify-between mb-2">
                   <Users className="h-5 w-5 text-purple-600 dark:text-purple-400" />
                   <span className="text-xs text-purple-600 dark:text-purple-400 font-medium">
@@ -213,7 +213,7 @@ export function DashboardOverview({ user }: DashboardOverviewProps) {
                 </p>
               </div>
 
-              <div className="bg-amber-50 dark:bg-amber-900/30 p-4 rounded-lg">
+              <div className="bg-amber-50 dark:bg-amber-900/30 p-4 rounded-lg hover:shadow-md transition-all duration-200 hover:translate-y-[-2px]">
                 <div className="flex items-center justify-between mb-2">
                   <Heart className="h-5 w-5 text-amber-600 dark:text-amber-400" />
                   <span className="text-xs text-amber-600 dark:text-amber-400 font-medium">
